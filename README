@@ -1,0 +1,87 @@
+Kvasir::Writer::XML(3)User Contributed Perl DocumentationKvasir::Writer::XML(3)
+
+
+
+NNAAMMEE
+       Kvasir::Writer::XML - Store Kvasir engine declarations as XML
+
+SSYYNNOOPPSSIISS
+         use Kvasir::Writer::XML;
+
+         my $xml = Kvasir::Writer::XML->as_xml($engine);
+
+         Kvasir::Loader::XML->to_file($engine, "my_engine.xml");
+
+DDEESSCCRRIIPPTTIIOONN
+       This module provides a mean to write Kvasir engine declarations to XML.
+
+IINNTTEERRFFAACCEE
+       CCLLAASSSS MMEETTHHOODDSS
+
+
+       as_xml ( ENGINE )
+           Returns a XML-representation of _E_N_G_I_N_E
+
+       to_file ( ENGINE, PATH )
+           Creates a XML-representation of _E_N_G_I_N_E and saves it at _P_A_T_H.
+
+XXMMLL DDooccuummeenntt ssttrruuccttuurree
+       The structure of the XML created by this writer is described in "XML
+       Document structure" in Kvasir::Loader::XML.
+
+       Arguments to entities (actions, inputs, hooks, outputs and rules) will
+       be tested to see if it's a single hash reference and if so be written
+       as such using the key as element name and the value as the elements
+       text content.
+
+       However, if the implementing class of the entitiy implements the method
+       "process_xml_writers_args" this will be called as a class method and is
+       responsible for adding children to the element. The arguments to the
+       method are the document as a "XML::LibXML::Document"-instance, the
+       entity-element as "XML::LibXML::Element"-instance which to add children
+       to and a list of the arguments encapsulated by "Kvasir::Type-
+       Decl"-instance that represents the entity.
+
+SSEEEE AALLSSOO
+       Kvasir
+
+       Kvasir::Loader::XML
+
+BBUUGGSS AANNDD LLIIMMIITTAATTIIOONNSS
+       Please report any bugs or feature requests to
+       "bug-kvasir-writer-xml@rt.cpan.org", or through the web interface at
+       <http://rt.cpan.org>.
+
+AAUUTTHHOORR
+       Claes Jakobsson "<claesjac@cpan.org>"
+
+LLIICCEENNCCEE AANNDD CCOOPPYYRRIIGGHHTT
+       Copyright (c) 2007, Versed Solutions "<info@versed.se>". All rights
+       reserved.
+
+       This software is released under the MIT license cited below.
+
+       TThhee ""MMIITT"" LLiicceennssee
+
+       Permission is hereby granted, free of charge, to any person obtaining a
+       copy of this software and associated documentation files (the "Soft-
+       ware"), to deal in the Software without restriction, including without
+       limitation the rights to use, copy, modify, merge, publish, distribute,
+       sublicense, and/or sell copies of the Software, and to permit persons
+       to whom the Software is furnished to do so, subject to the following
+       conditions:
+
+       The above copyright notice and this permission notice shall be included
+       in all copies or substantial portions of the Software.
+
+       THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+       OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MER-
+       CHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+       NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+       CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+       TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT-
+       WARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+perl v5.8.6                       2007-10-06            Kvasir::Writer::XML(3)

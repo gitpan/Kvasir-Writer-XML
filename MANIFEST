@@ -1,0 +1,17 @@
+Changes
+LICENSE
+MANIFEST
+Makefile.PL
+README
+lib/Kvasir/Writer/XML.pm
+t/01-basic.t
+t/02-action.t
+t/03-input.t
+t/04-output.t
+t/05-rule.t
+t/06-hooks.t
+t/07-run.t
+t/08-process_args.t
+t/pod-coverage.t
+t/pod.t
+META.yml                                 Module meta-data (added by MakeMaker)
