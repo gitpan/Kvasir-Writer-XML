@@ -13,12 +13,12 @@ use Kvasir::Writer::XML;
 use base qw(Kvasir::Input);
 
 sub process_xml_writer_args {
-    my ($self, $doc, $parent, $args) = @_;
+    my ($self, $doc, $parent, %args) = @_;
     
     is($self, "Test::Kvasir::Input");
     isa_ok($doc, "XML::LibXML::Document");
     isa_ok($parent, "XML::LibXML::Element");
-    is_deeply($args, { foo => 1, bar => 2 });
+    is_deeply(\%args, { foo => 1, bar => 2 });
     
     $parent->appendText("foo");
 }

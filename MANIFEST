@@ -12,6 +12,7 @@ t/05-rule.t
 t/06-hooks.t
 t/07-run.t
 t/08-process_args.t
+t/09-defaults.t
 t/pod-coverage.t
 t/pod.t
 META.yml                                 Module meta-data (added by MakeMaker)

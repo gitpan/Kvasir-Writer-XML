@@ -10,7 +10,7 @@ use XML::LibXML;
 use Kvasir::Engine;
 use Kvasir::Util qw(is_existing_package);
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 sub _new {
     my ($pkg) = @_;
@@ -42,6 +42,17 @@ sub _engine_to_doc {
     my $root = $doc->createElement("engine");
     $doc->setDocumentElement($root);
 
+    # Defaults
+    for my $defaults_name (sort $engine->defaults) {
+        my $values = $engine->get_defaults($defaults_name);
+        my $defaults = $doc->createElement("defaults");
+        $defaults->setAttribute(name => $defaults_name);
+        while (my ($key, $value) = each %$values) {
+            $defaults->appendTextChild($key, $value);
+        }
+        $root->addChild($defaults)
+    }
+    
     # Actions
     for my $action (sort $engine->actions) {
         my $decl = $engine->_get_action($action);
@@ -114,6 +125,11 @@ sub _decl_to_element {
     $entity->setAttribute("name" => $name);
     $entity->setAttribute("instanceOf" => $decl->_pkg);
     
+    my $defaults = $decl->_defaults;
+    if ($defaults && @$defaults) {
+        $entity->setAttribute("defaults" => join(", ", @$defaults));
+    }
+    
     _args_to_element($doc, $entity, $decl->_pkg, $decl->_args);
     
     return $entity;
@@ -132,10 +148,10 @@ sub _args_to_element {
         return;
     }
     
-    if (@$args == 1 && ref $args->[0] eq 'HASH') {
-        $args = shift @$args;
-        for my $key (sort keys %$args) {
-            $parent->appendTextChild($key, $args->{$key});
+    if (!(@$args & 1)) {
+        my %args = @$args;
+        for my $key (sort keys %args) {
+            $parent->appendTextChild($key, $args{$key});
         }
     }
 }
